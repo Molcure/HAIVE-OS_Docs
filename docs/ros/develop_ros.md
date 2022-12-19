@@ -13,6 +13,12 @@ cd ~/ros2_ws
 
 ## Creating a Python package
 
+Move to your workspace `src` folder:
+
+```bash
+cd ~/ros2_ws/src
+```
+
 Create an empty package:
 
 ```bash
