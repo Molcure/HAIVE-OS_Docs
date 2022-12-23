@@ -33,8 +33,8 @@ network:
       nameservers:
         addresses: [8.8.8.8, 8.8.4.4]
       access-points:
-        "Molcure_Express":
-          password: "makesense"
+        "<wifi-name>":
+          password: "<wifi-password>"
 ```
 
 Save the file and run the following command:
