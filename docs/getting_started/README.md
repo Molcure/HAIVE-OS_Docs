@@ -21,5 +21,5 @@ Build and run:
 ```shell
 colcon build
 . install/setup.bash
-ros2 launch hos_device_simulation hos_device_simulation.launch.py
+ros2 launch hos_run hos_run.launch.py
 ```
