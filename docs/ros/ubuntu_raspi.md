@@ -4,7 +4,7 @@ This describes setting up a Raspberry Pi to run a headless version of Ubuntu.
 
 - Get Raspberry Pi 4 Model B
 - Get MicroSD card 16GB
-- Download [Ubuntu Server 22.04.1 LTS](https://ubuntu.com/download/raspberry-pi/thank-you?version=22.04.1&architecture=server-arm64+raspi)
+- Download [Ubuntu Server 22.04.2 LTS](https://ubuntu.com/download/raspberry-pi/thank-you?version=22.04.2&architecture=server-arm64+raspi)
 - Download [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
 - Set the following in advanced settings before flashing (Wifi settings will be set later):
 
