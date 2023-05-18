@@ -27,7 +27,7 @@ There are several launch arguments you can use to customize the configuration of
 
 This allows for some useful custom configurations when launching the HAIVE OS:
 
-```
+```shell
 ros2 launch hos_run hos_run.launch.py haive4_simulation:='True' l2_proxy_protocol_file:='TT_TEST_H4001.json' l2_proxy_ignore_wait_commands:='--ignore-wait'
 ```
 

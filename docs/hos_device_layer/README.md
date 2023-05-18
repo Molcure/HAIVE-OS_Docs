@@ -55,3 +55,19 @@ Additionally the databse describes different fleets, that speficy HAIVE system c
 - `fleet-*`:
   - `device_id`: User level identifier which can be a duplicate across different fleets (e.g. `H4001`)
   - `device_uid`: A globally unique numerical identifier which is usually defined by a chip ID (e.g. chip id of `ESP32`)
+
+## Device API Calls
+
+The way to interact with devices using HAIVE OS is to use `DeviceAPICalls` that are requested asynchronously to the `DeviceManager`. They are in fact ROS service calls. In `hos_device_layer/gen/hos_device_api.py` you will find convenient functions that handle the process of creating a request and sending it to the device manager for you. All of these functions will return an object with associated information regarding you request:
+
+```python
+@dataclass
+class DeviceAPICallInfo:
+  call_time: float
+  future: Future
+  client: Client
+```
+
+The future can be checked while spinning your node to receive the response of your request. As described in the `hos_interfaces` section, a `DeviceAPICall` response will tell you if your service call was successful and will also give you a unique `task_id` for identifying your `DeviceAPICallResult`. For that, your node needs to be subscribed to the `DEVICE_API_CALL_RESULT_TOPIC` published by the `DeviceManager`. This level of indirection is necessary since device functions may take several seconds to finish executing.
+
+Check [TODO](TODO) for a basic example of how to make a `DeviceAPICall` from a node and process the result.
