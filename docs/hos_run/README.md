@@ -4,13 +4,13 @@ The `hos_run` package contains all launch files for HAIVE OS:
 
 ## hos_run.launch.py
 
-This is the main launch file to launch the HAIVE OS system. In its custom configuration it launches the following core nodes in order:
+This is the main launch file to launch the HAIVE OS. In its custom configuration it launches the following core nodes in order:
 
 - `rosbridge_server`: A WebSocket server implementation that exposes the rosbridge_library. rosbridge provides a JSON interface to ROS, allowing any client to send JSON to publish or subscribe to ROS topics, call ROS services, and more. rosbridge supports a variety of transport layers, including WebSockets and TCP. For more details see [here](https://github.com/RobotWebTools/rosbridge_suite). This server is used by HAIVE OS clients on the hardware and software side.
 - `device_manager`: Lowest layer in HAIVE OS. Handles connection of hardware devices and manages device command requests from upper layers.
 - `l2_proxy`: A proxy node that can receive L2 protocols in JSON format. It translates L2 commands into HAIVE OS device command requests and executes these commands according to the L2 specification.
 
-There are several launch arguments you can use to customize the configuration of the launched HAIVE OS system. Typing `ros2 launch hos_run hos_run.launch.py -s` will give you a list of all HAIVE OS arguments:
+There are several launch arguments you can use to customize the configuration of the launched HAIVE OS. Typing `ros2 launch hos_run hos_run.launch.py -s` will give you a list of all HAIVE OS arguments:
 
 - `wait_rosbridge_s`: Time to wait for rosbridge server node to start. (default: `'2.0'`)
 - `wait_for_device_layer_s`: Time to wait for device manager node to start. (default: `'10.0'`)
