@@ -26,4 +26,4 @@ colcon build
 ros2 launch hos_run hos_run.launch.py
 ```
 
-See the [hos_run]() documentation for more details about the HAIVE OS configuration.
+See the [hos_run](https://github.com/Molcure/HAIVE-OS/blob/master/docs/hos_run/) documentation for more details about the HAIVE OS configuration.

@@ -32,3 +32,7 @@ ros2 launch hos_run hos_run.launch.py haive4_simulation:='True' l2_proxy_protoco
 ```
 
  Additionally to the core nodes this launches a software simulation node of the HAIVE4 hardware and starts executing a L2 protocol described in `TT_TEST_H4001.json` on startup. While executing the protocol, it ignores any L2 wait commands to speed up execution.
+
+## hos_generator.launch.py
+
+This will launch a script that will update the device API file `hos_device_layer/gen/hos_device_api.py`. You need to launch it whenever you update the device API database.

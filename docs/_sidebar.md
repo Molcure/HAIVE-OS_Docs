@@ -9,6 +9,7 @@
         - [develop ros](/ros/develop_ros.md) -->
     - [system architecture](/system/)
     - [examples](/examples/)  
+    - [hos_run](/hos_run/)
     - [hos_interfaces](/hos_interfaces/)
     - [hos_device_layer](/hos_device_layer/)
     - [hos_device_simulation](/hos_device_simulation/)
