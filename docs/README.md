@@ -10,4 +10,6 @@ The docs for HAIVE OS are organized by categories. Select one of the categories 
 [hos_run](https://github.com/Molcure/HAIVE-OS/blob/master/docs/hos_run/)  
 [hos_interfaces](https://github.com/Molcure/HAIVE-OS/blob/master/docs/hos_interfaces/)  
 [hos_device_layer](https://github.com/Molcure/HAIVE-OS/blob/master/docs/hos_device_layer/)  
+[hos_generator](https://github.com/Molcure/HAIVE-OS/blob/master/docs/hos_generator/)  
+[hos_clients](https://github.com/Molcure/HAIVE-OS/blob/master/docs/hos_clients/)  
 [hos_device_simulation](https://github.com/Molcure/HAIVE-OS/blob/master/docs/hos_device_simulation/)  
