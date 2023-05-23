@@ -68,6 +68,121 @@ The [DeviceInterface](https://github.com/Molcure/HAIVE-OS/blob/main/src/hos_devi
 
 The `DeviceInterface` holds the client connection in a private `_client` field which is of type [roslibpy.Ros](https://roslibpy.readthedocs.io/en/latest/reference/index.html). All basic HAIVE OS communication is implemented in the `DeviceInterface` class.
 
-### `HaiveInterface` and `ContainerInterface` Classes
+## `HaiveInterface` and `ContainerInterface` Classes
 
-TODO
+The `HaiveInterface` and `ContainerInterface` classes do not implement any low level communication with HAIVE OS and usually only have contain callback functions that model some robot behavior. These callbacks can be registered using the `_register_device_command` method. You will find the registration of the callback functions in the implementation of the `power_on` method, which gets called once the HAIVE OS has started up.
+
+Let's take a look at the [BaseHaiveInterface](https://github.com/Molcure/HAIVE-OS/blob/main/src/hos_device_simulation/hos_device_simulation/interfaces_haive.py#L8) as an example:
+
+```python
+class BaseHaiveInterface(DeviceInterface):
+  def __init__(self, uid: int, simulation_node: Node, position_x: int, position_y: int) -> None:
+    super().__init__(uid, simulation_node)
+    self._position = (position_x, position_y)
+
+  def power_on(self):
+    super().power_on()
+
+    self._register_device_command('haive_led_all_off', self.cmd_led_all_off)
+    self._register_device_command('haive_led_all_on', self.cmd_led_all_on)
+    self._register_device_command('haive_led_slot_on', self.cmd_led_slot_on)
+    self._register_device_command('turntable_move', self.cmd_turntable_move)
+    self._register_device_command('set_slot_power', self.cmd_slot_power)
+    self._register_device_command('haive_get_position', self.cmd_get_position)
+
+  # ...
+```
+
+To register a device command callback function you have to pass in a string identifier and a reference to the method to call. The string identifier needs to be identical with a `function_name` defined in the [HAIVE OS device database](https://github.com/Molcure/HAIVE-OS/blob/master/docs/hos_device_layer/?id=haive-os-device-database).
+
+For now  most of the functions modeled in the `DeviceInterface` classes do nothing except logging an info and then reporting the result of the function:
+
+```python
+  # ...
+
+  def cmd_led_slot_on(self, cmd_id: int, serialized_cmd: str):
+    self._logger.info(f"uid-{self._uid}, cmd-{cmd_id}: cmd_led_slot_on >> {serialized_cmd}")
+    self._report_cmd_result(cmd_id, True)  # Every device command callback needs to send a result when the command has finished
+
+  # ...
+
+```
+
+One example of a more complex implementation that makes the [TODO](TODO) example for a digital twin implementation possible, we modeled the streaming of motor positions, which makes the 3D simulation of the HAIVE move:
+
+```python
+  # ...
+
+  def cmd_turntable_move(self, cmd_id: int, serialized_cmd: str):
+    self._logger.info(f"uid-{self._uid}, cmd-{cmd_id}: cmd_turntable_move >> {serialized_cmd}")
+
+    cmd = self._deserialize_cmd(serialized_cmd)
+
+    from_slot = self._haive_graph.get_turntable_position(self._device_id)
+    to_slot = int(cmd[3])
+
+    self._logger.info(f"cmd_turntable_move >> from_slot:{from_slot}, to_slot:{to_slot}")
+
+    self._haive_graph.move_turntable(self._device_id, to_slot)
+
+    turntable_values = {
+      1:  300, # 1918,
+      # delta: 143
+      3:  0, # 1775,
+      # delta: 141
+      5:  60, # 1634,
+      # delta: 137
+      # Flips side
+      7:  120, # 1497,
+      # delta: 145
+      9:  180, #1352,
+      # delta: 138
+      11: 240, # 1214
+      # delta: 704
+    }
+    from_value = turntable_values[from_slot]
+    to_value = turntable_values[to_slot]
+
+    diff = abs(from_value - to_value)
+    distance = min(diff, 360 - diff)
+
+    factor = -1.0 if ((from_value - to_value) + 360) % 360 < 180 else 1.0
+
+    cmd_data = {
+      'cmd_id': cmd_id,
+      'from_value': from_value,
+      'to_value': to_value,
+      'distance': distance,
+      'factor': factor,
+      'elapsed': 0.0,
+      'duration': 1.0,
+    }
+    self._logger.info(f"##### cmd_turntable_move >> cmd_data:{cmd_data}")
+
+    simulate_streams = self._node.get_parameter('simulate_streams').get_parameter_value().bool_value
+    if not simulate_streams:
+      self._report_cmd_result(cmd_data['cmd_id'], True)
+    else:
+      self._client.call_later(0.033, lambda: self._simulate_turntable(cmd_data))
+
+  def _simulate_turntable(self, cmd_data: Dict):
+    if cmd_data['elapsed'] < cmd_data['duration']:
+      def ease_out_expo(x: float) -> float:
+        if x == 1.0:
+          return 1.0
+        return 1.0 - pow(2.0, -10.0 * x)
+
+      def lerp(from_value: float, to_value: float, t: float) -> float:
+        return from_value * (1.0 - t) + (to_value * t)
+
+      value = lerp(0.0, cmd_data['distance'], ease_out_expo(cmd_data['elapsed']/cmd_data['duration']))
+      self._stream_data('turntable_motor', str((cmd_data['from_value'] + value * cmd_data['factor']) % 360))
+
+      cmd_data['elapsed'] += 0.033
+      self._client.call_later(0.033, lambda: self._simulate_turntable(cmd_data))
+    else:
+      self._stream_data('turntable_motor', str((cmd_data['from_value'] + cmd_data['distance'] * cmd_data['factor']) % 360))
+      self._report_cmd_result(cmd_data['cmd_id'], True)
+
+  # ...
+```

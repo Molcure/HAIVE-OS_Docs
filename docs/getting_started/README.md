@@ -1,6 +1,6 @@
 # Getting Started
 
-If you have not yet setup Ubuntu 22.04 and ROS2, you can follow the [ros](https://github.com/Molcure/HAIVE-OS/blob/master/docs/ros/) guide.
+If you have not yet setup Ubuntu 22.04 and ROS2, you can follow the [ros](https://github.com/Molcure/HAIVE-OS/blob/master/docs/ros/) guide first.
 
 Clone the repository on an Ubuntu 22.04 system:
 ```shell
@@ -27,3 +27,8 @@ ros2 launch hos_run hos_run.launch.py
 ```
 
 See the [hos_run](https://github.com/Molcure/HAIVE-OS/blob/master/docs/hos_run/) documentation for more details about the HAIVE OS configuration.
+
+## Further Reading
+
+- [running l2 protocols](https://github.com/Molcure/HAIVE-OS/blob/master/docs/getting_started/l2_protocols.md)
+- [using the hos_device_simulation package](https://github.com/Molcure/HAIVE-OS/blob/master/docs/gettings_started/device_simulation.md)

@@ -1,3 +1,3 @@
-# Device API
+# Digital Twin Example
 
 Under construction ...

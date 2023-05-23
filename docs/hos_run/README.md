@@ -8,7 +8,7 @@ This is the main launch file to launch the HAIVE OS. In its custom configuration
 
 - `rosbridge_server`: A WebSocket server implementation that exposes the rosbridge_library. rosbridge provides a JSON interface to ROS, allowing any client to send JSON to publish or subscribe to ROS topics, call ROS services, and more. rosbridge supports a variety of transport layers, including WebSockets and TCP. For more details see [here](https://github.com/RobotWebTools/rosbridge_suite). This server is used by HAIVE OS clients on the hardware and software side.
 - `device_manager`: Lowest layer in HAIVE OS. Handles connection of hardware devices and manages device command requests from upper layers.
-- `l2_proxy`: A proxy node that can receive L2 protocols in JSON format. It translates L2 commands into HAIVE OS device command requests and executes these commands according to the L2 specification.
+- `l2_proxy`: A proxy node that can receive L2 protocols in JSON format. It translates L2 commands into HAIVE OS device command requests and executes these commands according to the [L2 specification](https://airtable.com/app56FFN9rPq29WLM/tbl8q73cJDZ7iWL6e/viwGo8UIqPMPVYSmR?blocks=hide).
 
 There are several launch arguments you can use to customize the configuration of the launched HAIVE OS. Typing `ros2 launch hos_run hos_run.launch.py -s` will give you a list of all HAIVE OS arguments:
 
