@@ -10,7 +10,7 @@ ros2 launch hos_run hos_run.launch.py
 ```
 2. Download the [HAIVE4_Firmware repo](https://github.com/Molcure/HAIVE4_Firmware)
 3. Switch to branch `haive_os`
-4. Upload `ESP8266` firmware to ESP
+4. Upload `HAIVE4_Firmware/haive_os/ESP8266` firmware to ESP
 
 ## Update HAIVE OS Device Database
 
