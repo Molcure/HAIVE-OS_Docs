@@ -1,8 +1,6 @@
 # system architecture
 
-<p align='center'>
-<img src='img/system_overview.png' alt='System Overview' title='System Overview' width='75%'>
-</p>
+![System Overview](img/system_overview.png 'System Overview')
 
 The system architecture of HAIVE OS is based on the design principle of [seperation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns). (For now) we distinguish 5 layers from bottom to top:
 
