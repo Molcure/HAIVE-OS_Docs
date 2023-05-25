@@ -41,8 +41,8 @@ The HAIVE OS device database can be viewed using [Airtable](https://airtable.com
   - `description`: Description of the device
 - `apis`: Describes the API of a device
   - `function_name`: Unique name of the function
-  - `arguments`: List of function arguments that are encoded as strings of the format `{arg_name}:{arg_type}`
-  - `results`: List of result values that are encoded as strings of the format `{arg_name}:{arg_type}`
+  - `arguments`: List of function arguments that are encoded as strings of the format `{arg_name}:{arg_type}`. Possible `arg_type` values are `[uint8~uint64, int8~int64, float32~float64, bool, string]`.
+  - `results`: List of result values that are encoded as strings of the format `{arg_name}:{arg_type}`. Possible `arg_type` values are `[uint8~uint64, int8~int64, float32~float64, bool, string]`.
   - `description`: Description of the function (will also be added by `hos_generator` to the `hos_device_api.py` file)
 - `serializers`: Holds rules for serializing device APIs
   - `serializer`: A string that describes the rule serializing a device API by substituting each `$` with an argument from the `arguments` list described in `apis`. This implies that `len(arguments) == #$` must hold.
