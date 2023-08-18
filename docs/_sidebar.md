@@ -2,6 +2,7 @@
 
 - [home](/)
     - [getting started](/getting_started/)  
+        - [Github and Bitbucket](/getting_started/hos_dev.md)
         - [running l2 protocols](/getting_started/l2_protocols.md)  
         - [using the hos_device_simulation package](/getting_started/device_simulation.md)  
     - [ros](/ros/)  
@@ -15,6 +16,7 @@
     - [hos_run](/hos_run/)  
     - [hos_interfaces](/hos_interfaces/)  
     - [hos_device_layer](/hos_device_layer/)  
+    - [hos_behavior_layer](/hos_behavior_layer/) 
     - [hos_generator](/hos_generator/)  
     - [hos_clients](/hos_clients/)  
     - [hos_device_simulation](/hos_device_simulation/)  
