@@ -54,8 +54,8 @@ When nodes communicate using services, the node that sends a request for data is
 Currently each firmware APICall (recorded in Airtable) are service between HAIVE-OS and the device.
 
 Whenever you call a service in ROS2 you need to fulfill those requirement :
- - async call (not necessary but avoid lot of trouble)
- - ensure that your node are threaded, that is to say just in an other script for ROS or in a launch file, or threaded with python Thread package
+ - use async_call (not necessary but avoid lot of trouble)
+ - ensure that your node are threaded, that is to say just in an other script for ROS, in a launch file, or threaded with python Thread package
  - When those node are create, please create each time a MultiThreadExecutor() and add_add() method for each node (each of them need a different executor)
  - By default create all your ros_event (subscriber, publisher, client, service ,...) with a  ReentrantCallbackGroup() unless you want some particular behavior, please check ROS2 documentation about callback groups.
  - use spin_once() or spin_until_future() when you need the result of some service call and then come back to your protocol.

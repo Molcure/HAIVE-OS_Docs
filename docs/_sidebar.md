@@ -17,6 +17,7 @@
     - [hos_interfaces](/hos_interfaces/)  
     - [hos_device_layer](/hos_device_layer/)  
     - [hos_behavior_layer](/hos_behavior_layer/) 
+    - [hos_robot_state](/hos_robot_state/) 
     - [hos_generator](/hos_generator/)  
     - [hos_clients](/hos_clients/)
     - [hos_device_simulation](/hos_device_simulation/)
