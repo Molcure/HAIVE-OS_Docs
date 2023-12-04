@@ -81,3 +81,32 @@ This will generate all the State ros_msg and update DeviceAPI and StateAPI files
 $colcon build
 
 before build we should also check that every StateAPI are well overrided in hos_state_api.py.
+
+### Sensors callback
+
+Whenever a sensor send some information data directly to the HAIVE-OS, it need to trigger callback methods for some device.
+Automatically, every devices referred as child device in the Airtable database, his state_updater will automatically subscribe to this sensors
+
+```python
+  def _on_device_stream(self, stream_name: str, message: object) -> None:
+    device_uid = message.uid
+    data = message.data
+    self.get_logger().warning(f"THIS IS A DEBUG MSG: stream event from {self.node_name}>> {stream_name}:{device_uid}:{data}")
+
+    #TODO:Ricky:Here we have to identify the stream type from UID using self.db  
+    sensor_device_id = self._db.get_device_id(device_uid)
+    stream = self._db.get_device_streams(sensor_device_id)
+    for s in stream:
+      self.get_logger().info(s.stream)
+    #TODO:so the sorting/switch case should be done here ? indeed each sensor should behind trigger different call backs
+    match s.stream:
+      case "hall_sensor":
+        pass
+      case "rfid_info":
+        rfid_info_callback(self, data)
+      case _:
+        self.get_logger().warning(f"No callback found for this stream type : {s.stream}")
+    
+```
+
+In the switch case, according to the sensor type we call a certain callback. Of course you can override the _on_device_stream method so that according to the device you can change the callback function.
